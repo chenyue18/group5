@@ -2,7 +2,7 @@
 const cloud = require('wx-server-sdk')
 
 cloud.init({
-    env: 'cloud2-0g1qpznn8481602d'
+    env: 'cloud1-1g2p285p3573c47d'
 })
 
 //获取最新活动，传入参数为获取的数目，版本一判断是否过期，返回最后几个记录

@@ -9,7 +9,7 @@ App({
     } else {
       wx.cloud.init({
         traceUser: true,
-        env: 'cloud2-0g1qpznn8481602d',
+        env: 'cloud1-1g2p285p3573c47d',
       })
     }
 
@@ -221,7 +221,7 @@ App({
     logged: false,
     newMsg:'',
     userInfo: {
-      avatarUrl: 'cloud://cloud2-0g1qpznn8481602d.636c-cloud2-0g1qpznn8481602d-1307703676/images/ano.png',
+      avatarUrl: 'cloud://cloud1-1g2p285p3573c47d.636c-cloud1-1g2p285p3573c47d-1315632941/ano.png',
       nickName: '点击登录',
       gender: 1,
       age: 18,

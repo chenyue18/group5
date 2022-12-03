@@ -183,7 +183,7 @@ Page({
     // 传入参数
     var submitData = {
       taskName: that.data.name,
-      taskPic: "cloud://cloud2-0g1qpznn8481602d.636c-cloud2-0g1qpznn8481602d-1307703676/images/cover.jpg",
+      taskPic: "/images/cover.jpg",
       publisher: app.globalData.userInfo.nickName,
       publisherId: app.globalData.openId,
       totalNum: 1,

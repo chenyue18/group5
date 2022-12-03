@@ -2,7 +2,7 @@
 const cloud = require('wx-server-sdk')
 
 cloud.init({
-    env:'cloud2-0g1qpznn8481602d'
+    env:'cloud1-1g2p285p3573c47d'
 })
 
 //11.23做了一些修改，但是没好，没测

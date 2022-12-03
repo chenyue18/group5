@@ -2,7 +2,7 @@
 const cloud = require('wx-server-sdk')
 
 cloud.init({
-    env: 'cloud2-0g1qpznn8481602d'
+    env: 'cloud1-1g2p285p3573c47d'
 })
 //报名者取消报名（确认步骤已完成）扣除User表中的credit，删除info表中的记录
 

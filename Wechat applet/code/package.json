@@ -6,9 +6,8 @@
   "dependencies": {
     "miniprogram-sm-crypto": "^0.3.6",
     "tim-upload-plugin": "^1.0.3",
-    "tim-wx-sdk": "^2.15.0"
+    "tim-wx-sdk": "^2.24.2"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
