@@ -174,7 +174,7 @@ Page({
     var submitData = {
       taskId: Number(that.data.taskId),
       taskName: that.data.name,
-      taskPic: "/images/cover.jpg",
+      taskPic: "cloud://cloud1-1g2p285p3573c47d.636c-cloud1-1g2p285p3573c47d-1315632941/images/cover.jpg",
       totalNum: 1,
       startTime: startTime,
       duration: that.data.duration,

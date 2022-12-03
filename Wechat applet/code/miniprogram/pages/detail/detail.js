@@ -124,7 +124,7 @@ Page({
       chat_list: [
         {
           name: "杨昆达",
-          avatar: "/images/avatar.png",
+          avatar: "cloud://cloud1-1g2p285p3573c47d.636c-cloud1-1g2p285p3573c47d-1315632941/images/avatar.png",
           history: "想你的夜",
           noti: 3,
           time: "昨天11:30",
@@ -132,7 +132,7 @@ Page({
         },
         {
           name: "张泽",
-          avatar: "/images/avatar.png",
+          avatar: "cloud://cloud1-1g2p285p3573c47d.636c-cloud1-1g2p285p3573c47d-1315632941/images/avatar.png",
           history: "想你的夜",
           noti: 5,
           time: "昨天11:30",

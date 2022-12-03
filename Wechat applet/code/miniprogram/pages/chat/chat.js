@@ -733,7 +733,7 @@ Page({
         friendAvatarUrl = options.avatar
       } else { // 报名者未取匿
         friendNickname = '匿名用户'
-        friendAvatarUrl = '/images/ano.jpeg'
+        friendAvatarUrl = 'cloud://cloud1-1g2p285p3573c47d.636c-cloud1-1g2p285p3573c47d-1315632941/images/ano.jpeg'
       }
     } else { // 如果当前用户是报名者
       friendAvatarUrl = options.avatar // 发布者总是要显示真实头像
@@ -741,7 +741,7 @@ Page({
       if (this.data.applicantNickNameStatus) { // 报名者已经取匿
         myAvatarUrl = app.globalData.userInfo.avatarUrl
       } else {
-        myAvatarUrl = '/images/ano.jpeg'
+        myAvatarUrl = 'cloud://cloud1-1g2p285p3573c47d.636c-cloud1-1g2p285p3573c47d-1315632941/images/ano.jpeg'
       }
     }
 
