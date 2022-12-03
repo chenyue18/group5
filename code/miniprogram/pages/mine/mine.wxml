@@ -1,0 +1,97 @@
+<!--pages/mine/mine.wxml-->
+<!-- <view class="background"></view> -->
+
+<view class="header">
+  <!-- <image class="icon" src='/images/letsball_icon.png' mode='scaleToFill'></image> -->
+  <image class="icon" src='/images/letsball.png' mode='scaleToFill'></image>
+  <image class="bg_ware" src="/images/wave.gif" ></image>
+</view>
+
+<view class="userinfo-wrapper">
+  <view class="userinfo-line">
+  <view class="userinfo-avatar-wrapper">
+    <image class="userinfo-avatar" mode="scaleToFill" src="{{userInfo.avatarUrl}}"></image>
+  </view>
+    <view class="userinfo-words">
+      <view class="userinfo-nickname" bindtap="onTapLogIn">{{userInfo.nickName}}</view>
+    </view>
+  </view>
+
+  <view class="userinfo-line">
+    <view class="userinfo-stats">
+      <view class="userinfo-stats-block">
+        <view class="userinfo-stats-title">已发布</view>
+        <view class="userinfo-stats-value">{{pubCount > 0 ? pubCount : '-'}}</view>        
+      </view>
+      <view class="userinfo-stats-block">
+        <view class="userinfo-stats-title">已报名</view>
+        <view class="userinfo-stats-value">{{subCount > 0 ? subCount : '-'}}</view>        
+      </view>
+      <view class="userinfo-stats-block-tail">
+        <view class="userinfo-stats-title">已违约</view>
+        <view class="userinfo-stats-value">{{defaultCount > 0 ? defaultCount : '-'}}</view>
+      </view>
+    </view>
+    <!-- <view class="item-time">{{user_info.time}}</view> -->
+  </view>
+  
+</view>
+
+<!-- <view class="detail-wrapper">
+  <view class="detail-header">
+    个人信息
+  </view>
+  <view class='detail-content-wrapper'>
+    <view class="detail-content">
+    <view class="detail-item">
+      <view class="detail-title">姓名：</view>
+      <view class="detail-value">王基建</view>    
+    </view>  
+    <view class="detail-item">
+      <view class="detail-title">年龄：</view>
+      <view class="detail-value">71</view>    
+    </view>
+    <view class="detail-item">
+      <view class="detail-title">性别：</view>
+      <view class="detail-value">男</view>    
+    </view>
+    <view class="detail-item">
+      <view class="detail-title">院系：</view>
+      <view class="detail-value">文理学院</view>
+    </view>
+  </view>
+  </view>
+</view> -->
+
+
+
+<!-- <view class="tag-wrapper">
+  <view class="tag-header">
+    我的标签
+  </view>
+  <view class='tag-content-wrapper'>
+    <view class="tag-content">
+    <view class="tag-content-item">手球</view>
+    <view class="tag-content-item">乒乓球</view>
+    <view class="tag-content-item">手球</view>
+    <view class="tag-content-item">手球</view>
+    <view class="tag-content-item">手球</view>
+    <view class="tag-content-item">手球</view>
+    <view class="tag-content-item">手球</view>
+    <view class="tag-edit-button">编辑</view> 
+  </view>
+  </view>
+</view> -->
+
+<view class="credit-wrapper">
+  <view class="credit-header">
+    我的信用
+  </view>
+  <view class='credit-content-wrapper'>
+    <view class="credit-content">
+    <view class="credit-circle">{{credit < 0 ? '-' : (credit > 90 ? '优秀' : (credit > 80 ? '良好' : '一般'))}}</view>
+  </view>
+  </view>
+</view>
+
+<view class="develop" bindtap="toIndex">管理员入口，非公莫入</view>
