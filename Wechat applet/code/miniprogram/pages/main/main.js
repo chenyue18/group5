@@ -5,7 +5,7 @@ const app = getApp()
 Page({
   data: {
     status: 0,
-    images: [ 'cloud://cloud2-0g1qpznn8481602d.636c-cloud2-0g1qpznn8481602d-1307703676/images/test1.jpg', 'cloud://cloud2-0g1qpznn8481602d.636c-cloud2-0g1qpznn8481602d-1307703676/images/test2.jpg'],
+    images: [ '/images/test1.jpg', '/images/test2.jpg'],
     activities: []
   },
 
