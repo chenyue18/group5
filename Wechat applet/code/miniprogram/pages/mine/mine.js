@@ -23,7 +23,7 @@ Page({
   },
 
   toIndex: function(e) {
-    if(app.globalData.openId=='oxLgv4xWiY7m-O9smRhbFtr1OWhA'||app.globalData.openId=='oxLgv42LKttuU9Xt1g-J8MLzhWBw'||app.globalData.openId=='oxLgv45CH6C0OGbacZpkXfeBcWds'||app.globalData.openId=='oxLgv4yhSBCM-jyYFl8hzb1SAW5w')
+    if(app.globalData.openId=='opj8d5TvO-vLaFVxxyyKQjI9y_Jk')
     {wx.navigateTo({
       url: '../index/index',
     })}
