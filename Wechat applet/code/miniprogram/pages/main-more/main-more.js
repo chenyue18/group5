@@ -171,7 +171,12 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    console.log('用户下拉刷新')
+    this._getLatestTask(
+      () => wx.stopPullDownRefresh({
+        success: (res) => {console.log('刷新完毕')},
+      })
+    )
   },
 
   /**
@@ -179,12 +184,6 @@ Page({
    */
   onReachBottom: function () {
     console.log("已经到底了")
-    // 搜索状态下不分页拉取
-    if (this.data.keyWordSent) {
-      return
-    }
-    // 非搜索状态下
-    this._getLatestTask(this.data.numLatestTask, this.data.numLatestTask + this.data.step)
   },
 
   _search: async function(keyWord) {
@@ -223,56 +222,97 @@ Page({
   },
 
   // 获得最新任务
-  _getLatestTask: async function (num1=0, num2=6) {  // 初始状态下拉取10个
-    var that = this
+//   _getLatestTask: async function (num1=0, num2=6) {  // 初始状态下拉取10个
+//     var that = this
 
-    // 调用云函数
-    try {
-      var res = await wx.cloud.callFunction({
-        name: 'get_latest_task',
-        data: {
-        },
-      })
-      if (res.result.errCode == 0) {  
-        let latestTasks = res.result.data.tasks
-        console.log(latestTasks)
-        if (latestTasks == undefined) {
-          latestTasks = []
-        }
-        latestTasks = latestTasks.map(
-          item => {
-            let startTime = new Date(item.startTime)
-            let date = startTime.getFullYear() + '年' + (startTime.getMonth() + 1) + '月' + startTime.getDate() + '日'
-            let time =  startTime.getHours() + '点' + startTime.getMinutes() + '分'
-            let strTime = date + time + '开始'
-            res = item
-            res.startTime = strTime
-            return res
-          }
-        )
-        that.setData({
-          latestTasks: that.data.latestTasks.concat(latestTasks),
-          numLatestTask: that.data.numLatestTask + latestTasks.length
-        })
-      } else if (res.result.errCode == 2){
-        console.log("已经没有更多活动了")
-      } else {
-        wx.showModal({
-          title: '抱歉，出错了呢~',
-          content: res.result.errMsg,
-          confirmText: "我知道了",
-          showCancel: false,
-          success(res) {
-            if (res.confirm) {
-              console.log('用户点击确定')
-            } else if (res.cancel) {
-              console.log('用户点击取消')
+//     // 调用云函数
+//     try {
+//       var res = await wx.cloud.callFunction({
+//         name: 'get_latest_task',
+//         data: {
+//         },
+//       })
+//       if (res.result.errCode == 0) {  
+//         let latestTasks = res.result.data.tasks
+//         console.log(latestTasks)
+//         if (latestTasks == undefined) {
+//           latestTasks = []
+//         }
+//         latestTasks = latestTasks.map(
+//           item => {
+//             let startTime = new Date(item.startTime)
+//             let date = startTime.getFullYear() + '年' + (startTime.getMonth() + 1) + '月' + startTime.getDate() + '日'
+//             let time =  startTime.getHours() + '点' + startTime.getMinutes() + '分'
+//             let strTime = date + time + '开始'
+//             res = item
+//             res.startTime = strTime
+//             return res
+//           }
+//         )
+//         that.setData({
+//           latestTasks: that.data.latestTasks.concat(latestTasks),
+//           numLatestTask: that.data.numLatestTask + latestTasks.length
+//         })
+//       } else if (res.result.errCode == 2){
+//         console.log("已经没有更多活动了")
+//       } else {
+//         wx.showModal({
+//           title: '抱歉，出错了呢~',
+//           content: res.result.errMsg,
+//           confirmText: "我知道了",
+//           showCancel: false,
+//           success(res) {
+//             if (res.confirm) {
+//               console.log('用户点击确定')
+//             } else if (res.cancel) {
+//               console.log('用户点击取消')
+//             }
+//           }
+//         })
+//       }
+//     } catch (err) {
+//       console.log(err)
+//     }
+//   },
+  // 获得最新任务
+  _getLatestTask: function(callback) {
+    var that = this
+    wx.cloud.callFunction({
+      name: 'get_latest_task',
+      data: {},
+      success: res => {
+        console.log('查询最新任务成功，一共', res.result.data.tasks.length, '条。');
+        if (res.result.errCode == 0) {
+          let latestTasks = res.result.data.tasks.map(
+            item => {
+              let startTime = new Date(item.startTime)
+              let date = startTime.getFullYear() + '年' + (startTime.getMonth() + 1) + '月' + startTime.getDate() + '日'
+              let time =  startTime.getHours() + '点' + startTime.getMinutes() + '分'
+              let strTime = date + time + '开始'
+              res = item
+              res.startTime = strTime
+              return res
             }
-          }
+          )
+          that.setData({
+            latestTasks: latestTasks
+          })
+          callback && callback()
+        } else {
+          console.error('传参！')
+          callback && callback()
+        }
+      },
+      fail: err => {
+        console.error('[云函数] [get_latest_task] 调用失败', err)
+        wx.showModal({
+          title: '获取最新活动失败，请刷新重试',
+          content: err.result.errMsg,
+          showCancel: false,
         })
+        callback && callback()
       }
-    } catch (err) {
-      console.log(err)
-    }
+    })
   },
+
 })
