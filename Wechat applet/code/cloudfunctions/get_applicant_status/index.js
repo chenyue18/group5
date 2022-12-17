@@ -55,6 +55,8 @@ exports.main = async (event, context) => {
       result.data.applicantStatus = query.applicantStatus
       result.data.askedCancelAnonymity  = query.askedCancelAnonymity
       result.data.askedConfirm = query.askedConfirm
+      result.data.publisherNickNameStatus = query.publisherNickNameStatus
+      result.data.askedPublisherCancelAnonymity = query.askedPublisherCancelAnonymity
     }
   } catch (e) {
     result.errCode = 10086
