@@ -30,8 +30,8 @@
     <!-- <image class="item-picture" mode="scaleToFill" src="cloud://cloud2-0g1qpznn8481602d.636c-cloud2-0g1qpznn8481602d-1307703676/images/avatar.png"></image> -->
     <view class="item-words">
       <view class="item-title">{{itemName.taskName}}</view>
-      <view class="item-leader">{{itemName.publisher}}</view>
-      <view class="item-loc">{{itemName.place}}</view>
+      <view class="item-leader">{{itemName.place}}</view>
+      <view class="item-loc">{{itemName.details}}</view>
     </view>
   </view>
   <view class="item-time">{{itemName.startTime}}</view>

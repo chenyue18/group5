@@ -13,8 +13,8 @@
     <image wx:if="{{itemName.picture_url != ''}}" class="item-picture" mode="scaleToFill" src="{{itemName.taskPic}}"></image>
     <view class="item-words">
       <view class="item-title">{{itemName.taskName}}</view>
-      <view class="item-leader">{{itemName.publisher}}</view>
-      <view class="item-loc">{{itemName.place}}</view>
+      <view class="item-leader">{{itemName.place}}</view>
+      <view class="item-loc">{{itemName.details}}</view>
     </view>
     <view class="item-status-area">
      <view class="{{itemName.isFull ? 'item-status-confirmed' : 'item-status-unconfirmed'}}">
