@@ -720,8 +720,7 @@ Page({
               console.log('用户点击确定')
               if (that.data.asPub){
               that.setData({
-                waitForFace: false,
-                myAvatarUrl: app.globalData.userInfo.avatarUrl
+                waitForFace: false
               })
             }
             else{
@@ -811,15 +810,11 @@ Page({
         console.log(res)
         that.setData({
           applicantNickNameStatus: res.result.data.applicantNickNameStatus,
-
-        })
-        if (!this.data.asPub) {
-          this.setData({
-            waitForFace: res.result.data.askedCancelAnonymity,
+          publisherNickNameStatus: res.result.data.publisherNickNameStatus,
+          waitForFace: res.result.data.askedCancelAnonymity,
             waitForPubFace: res.result.data.askedPublisherCancelAnonymity,
             waitForConfirm: res.result.data.askedConfirm
-          })
-        }
+        })
       } else {
         wx.showModal({
           title: '抱歉，出错了呢~',
@@ -940,7 +935,8 @@ Page({
             that.setData({
                 publisherNickNameStatus: true,
                 friendNickname: options.name,
-                friendAvatarUrl: options.avatar
+                friendAvatarUrl: options.avatar,
+                waitForFace: false
             })
             wx.setNavigationBarTitle({
                 title: that.data.friendNickname
@@ -957,7 +953,8 @@ Page({
           that.setData({
             applicantNickNameStatus: true,
             friendNickname: options.name,
-            friendAvatarUrl: options.avatar
+            friendAvatarUrl: options.avatar,
+            waitForPubFace: false
           })
           wx.setNavigationBarTitle({
             title: that.data.friendNickname
