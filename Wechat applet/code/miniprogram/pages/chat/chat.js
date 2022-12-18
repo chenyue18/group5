@@ -307,7 +307,7 @@ Page({
                 name: 'ask_publisher_anonymity',
                 data: {
                   taskId: that.data.taskId,
-                  applicantId: that.data.applicantId
+                  applicantId: app.globalData.userInfo.openId
                 },
                 success: res => {
                   if (res.result.errCode == 0) {
