@@ -1,5 +1,5 @@
 <wxs src="../../utils/filter.wxs" module="filters"/>
-<view class="tab-wrapper" wx:if="{{(waitForFace & !waitForConfirm) || waitForPubFace}}">
+<view class="tab-wrapper" wx:if="{{(asPub & waitForFace & !waitForConfirm) || (!asPub & waitForPubFace)}}">
 <view class='tab-center-wrapper'>
 对方请求你取消匿名
 </view>
