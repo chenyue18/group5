@@ -9,7 +9,7 @@ cloud.init({
 exports.main = async (event, context) => {
     const wxContext = cloud.getWXContext()
 
-    if (event.taskId == undefined || event.applicantId == undefined ) {
+    if (event.taskId == undefined || event.applicantId == undefined || event.status == undefined ) {
         var result = {}
         result.errCode = 1
         result.errMsg = '未传必要参数，请重试'
@@ -31,7 +31,7 @@ exports.main = async (event, context) => {
         )
         .update({
             data: {
-                askedPublisherCancelAnonymity:true,
+                askedPublisherCancelAnonymity:event.status,
             }
         })
         .then(res => {

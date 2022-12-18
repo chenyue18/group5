@@ -186,8 +186,8 @@ App({
                     console.log('查有此人。')
                     this.globalData.logged = true
                     this.globalData.user = res.result.data.user
-                    this.globalData.userInfo.avatarUrl = this.globalData.user.userPic
-                    this.globalData.userInfo.nickName = this.globalData.user.nickName
+                    this.globalData.userInfo.avatarUrl = res.result.data.user.userPic
+                    this.globalData.userInfo.nickName = res.result.data.user.nickName
                     wx.switchTab({
                         url: '/pages/main/main',
                       })
@@ -224,8 +224,8 @@ App({
     logged: false,
     newMsg:'',
     userInfo: {
-      avatarUrl: 'cloud://cloud1-1g2p285p3573c47d.636c-cloud1-1g2p285p3573c47d-1315632941/ano.png',
-      nickName: '点击登录',
+      avatarUrl: '',
+      nickName: '',
       gender: 1,
       age: 18,
     },

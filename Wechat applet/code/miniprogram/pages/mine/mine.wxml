@@ -2,8 +2,8 @@
 <!-- <view class="background"></view> -->
 
 <view class="header">
-  <!-- <image class="icon" src='/images/letsball_icon.png' mode='scaleToFill'></image> -->
-  <image class="icon" src='cloud://cloud1-1g2p285p3573c47d.636c-cloud1-1g2p285p3573c47d-1315632941/images/letsball.png' mode='scaleToFill'></image>
+   <image class="icon" src='/images/letsball_icon.png' mode='scaleToFill'></image>
+  <!--<image class="icon" src='cloud://cloud1-1g2p285p3573c47d.636c-cloud1-1g2p285p3573c47d-1315632941/images/letsball.png' mode='scaleToFill'></image>-->
   <image class="bg_ware" src="cloud://cloud1-1g2p285p3573c47d.636c-cloud1-1g2p285p3573c47d-1315632941/images/wave.gif" ></image>
 </view>
 

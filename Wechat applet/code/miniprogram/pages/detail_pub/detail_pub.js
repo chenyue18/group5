@@ -17,7 +17,7 @@ Page({
     msg: [],
     status: 'false',
     anoName: '匿名用户',
-    anoPic: 'cloud://cloud1-1g2p285p3573c47d.636c-cloud1-1g2p285p3573c47d-1315632941/images/ano.png',
+    anoPic: 'images/ano.jpg',
     IMflag: 0
   },
   IMlogin: function (e) {
