@@ -304,10 +304,10 @@ Page({
           }
           else {
             wx.cloud.callFunction({
-                name: 'ask_publisher_anonymity',
+                name: 'ask_publisher_cancel_anonymity',
                 data: {
                   taskId: that.data.taskId,
-                  applicantId: app.globalData.userInfo.openId
+                  applicantId: that.data.applicantId
                 },
                 success: res => {
                   if (res.result.errCode == 0) {
