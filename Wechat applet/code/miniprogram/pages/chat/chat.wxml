@@ -59,7 +59,7 @@
     </view> -->
     <view class="chat_box" wx:if="{{item.type != 'TIMCustomElem'}}">
       <view class="chat-item {{item.flow == 'in' ? '' : 'flex-wrap'}}">
-        <image wx:if="{{item.flow == 'in'}}" class='avatar' style="margin-right: 19rpx;" mode= "scaleToFill" src="data:image/jpg;base64,{{friendAvatarUrl}}"></image>
+        <image wx:if="{{item.flow == 'in'}}" class='avatar' style="margin-right: 19rpx;" mode= "scaleToFill"  wx:if="{{(applicantNickNameStatus & asPub)||(!asPub & publisherNickNameStatus )}}" src="data:image/jpg;base64,{{friendAvatarUrl}}"></image>
         <image class='avatar' style="margin-left: 19rpx" mode= "scaleToFill" src="data:image/jpg;base64,{{myAvatarUrl}}" wx:else></image>
         <view class='content'>{{item.payload.text}}</view>
       </view>

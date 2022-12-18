@@ -42,7 +42,7 @@
   <view class="area_chat">
     <view class="chat_card">
       <image class="avatar" wx:if="{{!publisherNickNameStatus}}" src="{{anoPic}}"></image>
-      <image class="avatar" wx:if="{{publisherNickNameStatus}}" src="{{pubInfo.userPic}}"></image>
+      <image class="avatar" wx:if="{{publisherNickNameStatus}}" src="data:image/jpg;base64,{{pubInfo.userPic}}"></image>
       <view class="chat_content">
         <view class="chat_row">
           <view class="chat_name" wx:if="{{!publisherNickNameStatus}}">{{anoName}}</view>

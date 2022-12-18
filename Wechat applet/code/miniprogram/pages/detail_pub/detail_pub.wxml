@@ -41,7 +41,7 @@
   <view class="subtitle">参与者</view>
   <view class="area_chat">
     <view class="chat_card">
-      <image class="avatar" wx:if="{{subInfo.cancelAno}}" src="{{subInfo.userPic}}"></image>
+      <image class="avatar" wx:if="{{subInfo.cancelAno}}" src="data:image/jpg;base64,{{subInfo.userPic}}"></image>
       <image class="avatar" wx:if="{{!subInfo.cancelAno}}" src="{{anoPic}}"></image>
       <view class="chat_content">
         <view class="chat_row">

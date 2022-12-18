@@ -943,7 +943,7 @@ Page({
               })
         }
       }
-      if (that.data.asPub == true) {
+      if (that.data.asPub) {
           if (newMessage.payload.text == '请您取消匿名') {
               that.setData({
                   waitForPubFace: true
