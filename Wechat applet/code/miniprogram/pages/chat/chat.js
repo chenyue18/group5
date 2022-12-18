@@ -37,8 +37,10 @@ Page({
     adjust: true,
     asPub: false, // 当前用户是否是发布者
     applicantNickNameStatus: false, // 报名者是否取匿
+    publisherNickNameStatus: false, //发布者是否取匿
     waitForConfirm: false, // 是否正在等待报名者确认参加
-    waitForFace: false, // 是否正在等待报名者取匿
+    waitForFace: false, // 是否正在等待对方取匿
+    waitForPubFace: false, //是否等待发布者取匿
     firstApply:'',//是否是第一次点进聊天页面
   },
 
@@ -231,73 +233,145 @@ Page({
           wx.showLoading({
             title: '请稍等',
           })
-          wx.cloud.callFunction({
-            name: 'ask_cancel_anonymity',
-            data: {
-              taskId: that.data.taskId,
-              applicantId: that.data.applicantId
-            },
-            success: res => {
-              if (res.result.errCode == 0) {
-                console.log("成功发起请求：最终确认")
-                wx.showModal({
-                  title: '请求成功！',
-                  content: '成功发起请求',
-                  confirmText: "我知道了",
-                  showCancel: false,
-                  //点击“我知道了”
-                  success(res) {
-                    if (res.confirm) {
-                      //向报名者发送一条消息
-                      that.setData({
-                        is_lock: false
-                      })
-                      var content = {
-                        text: "请您取消匿名"
-                      };
-                      var tim = app.globalData.tim
-                      var options = {
-                        to: that.data.conversationID.slice(3), // 消息的接收方
-                        conversationType: TIM.TYPES.CONV_C2C, // 会话类型取值TIM.TYPES.CONV_C2C或TIM.TYPES.CONV_GROUP
-                        payload: content // 消息内容的容器
+          if (that.data.asPub) {
+            wx.cloud.callFunction({
+                name: 'ask_cancel_anonymity',
+                data: {
+                  taskId: that.data.taskId,
+                  applicantId: that.data.applicantId
+                },
+                success: res => {
+                  if (res.result.errCode == 0) {
+                    console.log("成功发起请求：最终确认")
+                    wx.showModal({
+                      title: '请求成功！',
+                      content: '成功发起请求',
+                      confirmText: "我知道了",
+                      showCancel: false,
+                      //点击“我知道了”
+                      success(res) {
+                        if (res.confirm) {
+                          //向报名者发送一条消息
+                          that.setData({
+                            is_lock: false
+                          })
+                          var content = {
+                            text: "请您取消匿名"
+                          };
+                          var tim = app.globalData.tim
+                          var options = {
+                            to: that.data.conversationID.slice(3), // 消息的接收方
+                            conversationType: TIM.TYPES.CONV_C2C, // 会话类型取值TIM.TYPES.CONV_C2C或TIM.TYPES.CONV_GROUP
+                            payload: content // 消息内容的容器
+                          }
+                          // // 发送文本消息，Web 端与小程序端相同
+                          // 1. 创建消息实例，接口返回的实例可以上屏
+                          let message = tim.createTextMessage(options)
+                          // 2. 发送消息
+                          let promise = tim.sendMessage(message)
+                          promise.then(function (imResponse) {
+                            // 发送成功
+                            var messageList = that.data.myMessages
+                            messageList.push(imResponse.data.message)
+                            that.setData({
+                              is_lock: true,
+                              myMessages: messageList
+                            })
+                            that.pageScrollToBottom()
+                          }).catch(function (imError) {
+                            // 发送失败
+                            console.warn('sendMessage error:', imError);
+                          })
+                        }
                       }
-                      // // 发送文本消息，Web 端与小程序端相同
-                      // 1. 创建消息实例，接口返回的实例可以上屏
-                      let message = tim.createTextMessage(options)
-                      // 2. 发送消息
-                      let promise = tim.sendMessage(message)
-                      promise.then(function (imResponse) {
-                        // 发送成功
-                        var messageList = that.data.myMessages
-                        messageList.push(imResponse.data.message)
-                        that.setData({
-                          is_lock: true,
-                          myMessages: messageList
-                        })
-                        that.pageScrollToBottom()
-                      }).catch(function (imError) {
-                        // 发送失败
-                        console.warn('sendMessage error:', imError);
-                      })
-                    }
+                    })
+                  } else {
+                    console.error('传参')
                   }
-                })
-              } else {
-                console.error('传参')
-              }
-            },
-            fail: err => {
-              wx.showModal({
-                title: '云函数调用失败',
-                confirmText: "我知道了",
-                showCancel: false,
+                },
+                fail: err => {
+                  wx.showModal({
+                    title: '云函数调用失败',
+                    confirmText: "我知道了",
+                    showCancel: false,
+                  })
+                  console.error('云函数调用失败', err)
+                },
+                complete: () => {
+                  wx.hideLoading()
+                }
               })
-              console.error('云函数调用失败', err)
-            },
-            complete: () => {
-              wx.hideLoading()
-            }
-          })
+          }
+          else {
+            wx.cloud.callFunction({
+                name: 'ask_publisher_anonymity',
+                data: {
+                  taskId: that.data.taskId,
+                  applicantId: that.data.applicantId
+                },
+                success: res => {
+                  if (res.result.errCode == 0) {
+                    console.log("成功发起请求：最终确认")
+                    wx.showModal({
+                      title: '请求成功！',
+                      content: '成功发起请求',
+                      confirmText: "我知道了",
+                      showCancel: false,
+                      //点击“我知道了”
+                      success(res) {
+                        if (res.confirm) {
+                          //向发布者发送一条消息
+                          that.setData({
+                            is_lock: false
+                          })
+                          var content = {
+                            text: "请您取消匿名"
+                          };
+                          var tim = app.globalData.tim
+                          var options = {
+                            to: that.data.conversationID.slice(3), // 消息的接收方
+                            conversationType: TIM.TYPES.CONV_C2C, // 会话类型取值TIM.TYPES.CONV_C2C或TIM.TYPES.CONV_GROUP
+                            payload: content // 消息内容的容器
+                          }
+                          // // 发送文本消息，Web 端与小程序端相同
+                          // 1. 创建消息实例，接口返回的实例可以上屏
+                          let message = tim.createTextMessage(options)
+                          // 2. 发送消息
+                          let promise = tim.sendMessage(message)
+                          promise.then(function (imResponse) {
+                            // 发送成功
+                            var messageList = that.data.myMessages
+                            messageList.push(imResponse.data.message)
+                            that.setData({
+                              is_lock: true,
+                              myMessages: messageList
+                            })
+                            that.pageScrollToBottom()
+                          }).catch(function (imError) {
+                            // 发送失败
+                            console.warn('sendMessage error:', imError);
+                          })
+                        }
+                      }
+                    })
+                  } else {
+                    console.error('传参')
+                  }
+                },
+                fail: err => {
+                  wx.showModal({
+                    title: '云函数调用失败',
+                    confirmText: "我知道了",
+                    showCancel: false,
+                  })
+                  console.error('云函数调用失败', err)
+                },
+                complete: () => {
+                  wx.hideLoading()
+                }
+              })
+          }
+
         }
       }
     })
@@ -472,13 +546,14 @@ Page({
     }
   },
 
-  // 报名者拒绝取匿
+  // 对方拒绝取匿
   onRefuseFace: async function () {
     var that = this
     try {
       wx.showLoading({
         title: '请稍等',
       })
+      if (that.data.asPub) {
       var res = await wx.cloud.callFunction({
         name: 'cancel_anonymity',
         data: {
@@ -487,6 +562,17 @@ Page({
           status: false
         },
       })
+    }
+    else {
+        var res = await wx.cloud.callFunction({
+            name: 'cancel_publisher_anonymity',
+            data: {
+              taskId: this.data.taskId,
+              applicantId: this.data.applicantId,
+              status: false
+            },
+          })
+    }
       wx.hideLoading()
       if (res.result.errCode == 0) {
         wx.showModal({
@@ -528,9 +614,16 @@ Page({
                 console.warn('sendMessage error:', imError);
               })
               console.log('用户点击确定')
+              if (that.data.asPub) {
               that.setData({
                 waitForFace: false
               })
+            }
+            else {
+                that.setData({
+                    waitForPubFace: false
+                })
+            }
             } else if (res.cancel) {
               console.log('用户点击取消')
             }
@@ -564,6 +657,7 @@ Page({
       wx.showLoading({
         title: '请稍等',
       })
+      if (that.data.asPub) {
       var res = await wx.cloud.callFunction({
         name: 'cancel_anonymity',
         data: {
@@ -572,6 +666,17 @@ Page({
           status: true
         },
       })
+    }
+    else {
+        var res = await wx.cloud.callFunction({
+            name: 'cancel_publisher_anonymity',
+            data: {
+              taskId: this.data.taskId,
+              applicantId: this.data.applicantId,
+              status: true
+            },
+          })
+    }
       wx.hideLoading()
       if (res.result.errCode == 0) {
         wx.showModal({
@@ -581,7 +686,7 @@ Page({
           showCancel: false,
           success(res) {
             if (res.confirm) {
-              //向发布者发送一条消息
+              //向对方发送一条消息
               that.setData({
                 is_lock: false
               })
@@ -613,10 +718,17 @@ Page({
                 console.warn('sendMessage error:', imError);
               })
               console.log('用户点击确定')
+              if (that.data.asPub){
               that.setData({
                 waitForFace: false,
                 myAvatarUrl: app.globalData.userInfo.avatarUrl
               })
+            }
+            else{
+                that.setData({
+                    waitForPubFace: false
+                })
+            }
             } else if (res.cancel) {
               console.log('用户点击取消')
             }
@@ -699,10 +811,12 @@ Page({
         console.log(res)
         that.setData({
           applicantNickNameStatus: res.result.data.applicantNickNameStatus,
+
         })
         if (!this.data.asPub) {
           this.setData({
             waitForFace: res.result.data.askedCancelAnonymity,
+            waitForPubFace: res.result.data.askedPublisherCancelAnonymity,
             waitForConfirm: res.result.data.askedConfirm
           })
         }
@@ -733,15 +847,16 @@ Page({
         friendAvatarUrl = options.avatar
       } else { // 报名者未取匿
         friendNickname = '匿名用户'
-        friendAvatarUrl = 'cloud://cloud1-1g2p285p3573c47d.636c-cloud1-1g2p285p3573c47d-1315632941/images/ano.jpeg'
+        friendAvatarUrl = 'cloud://cloud1-1g2p285p3573c47d.636c-cloud1-1g2p285p3573c47d-1315632941/images/ano.png'
       }
     } else { // 如果当前用户是报名者
-      friendAvatarUrl = options.avatar // 发布者总是要显示真实头像
-      friendNickname = options.name // 并显示真实昵称
-      if (this.data.applicantNickNameStatus) { // 报名者已经取匿
-        myAvatarUrl = app.globalData.userInfo.avatarUrl
+      myAvatarUrl = app.globalData.userInfo.avatarUrl
+      if (this.data.publisherNickNameStatus) { // 发布者已经取匿
+        friendNickname = options.name
+        friendAvatarUrl = options.avatar
       } else {
-        myAvatarUrl = 'cloud://cloud1-1g2p285p3573c47d.636c-cloud1-1g2p285p3573c47d-1315632941/images/ano.jpeg'
+        friendNickname = '匿名用户'
+        friendAvatarUrl = 'cloud://cloud1-1g2p285p3573c47d.636c-cloud1-1g2p285p3573c47d-1315632941/images/ano.png'
       }
     }
 
@@ -821,8 +936,23 @@ Page({
             waitForConfirm: true
           })
         }
+        if (newMessage.payload.text == '好的，我已取消匿名') {
+            that.setData({
+                publisherNickNameStatus: true,
+                friendNickname: options.name,
+                friendAvatarUrl: options.avatar
+            })
+            wx.setNavigationBarTitle({
+                title: that.data.friendNickname
+              })
+        }
       }
       if (that.data.asPub == true) {
+          if (newMessage.payload.text == '请您取消匿名') {
+              that.setData({
+                  waitForPubFace: true
+              })
+          }
         if (newMessage.payload.text == '好的，我已取消匿名') {
           that.setData({
             applicantNickNameStatus: true,

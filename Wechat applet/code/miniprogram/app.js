@@ -188,6 +188,9 @@ App({
                     this.globalData.user = res.result.data.user
                     this.globalData.userInfo.avatarUrl = this.globalData.user.userPic
                     this.globalData.userInfo.nickName = this.globalData.user.nickName
+                    wx.switchTab({
+                        url: '/pages/main/main',
+                      })
                   } else {
                     console.log('查无此人。')
                   }

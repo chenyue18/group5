@@ -177,44 +177,10 @@ Page({
   },
 
   // 下方为私有函数部分
-  // 首次注册
-  _wechatSign: function(callback) {
-    var that = this
-    wx.showModal({
-      title: '提示',
-      content: '请先登录哦~',
-      confirmColor: '#FE6559',
-      cancelColor: '#81838F',
-      cancelText: '取消',
-      confirmText: '登录',
-      success(res) {
-        if (res.confirm) {
-          console.log('用户确认登录。')
-          wx.getUserProfile({
-            desc: '用于更新和完善用户资料', 
-            success: (res) => {
-              console.log("获取用户信息成功")
-              console.log(res.userInfo)
-              app.globalData.userInfo.avatarUrl = res.userInfo.avatarUrl
-              app.globalData.userInfo.nickName = res.userInfo.nickName
-              that._updateUser()
-              wx.showModal({
-                title: '登录成功！',
-                confirmText: "好的",
-                confirmColor: '#FE6559',
-                showCancel: false,
-              })
-            },
-          })
-        } else if (res.cancel) {
-          console.log('用户点击取消')
-        }
-      }
-    })
-  },
 
   // 静默注册
   _silentSign: function(callback) {
+      var that = this
     if (app.globalData.openId == undefined) {
       wx.cloud.callFunction({
         name: 'get_openid',
@@ -243,6 +209,7 @@ Page({
                     callback && callback()
                   } else {
                     console.log('查无此人。')
+                    that._updateUser()
                     callback && callback()
                   }
                 } else {
@@ -267,6 +234,34 @@ Page({
       })
     } else {
       console.log('已经获得openid')
+      wx.cloud.callFunction({
+        name: 'check_user',
+        data: {
+          openId: app.globalData.openId,
+        },
+        success: res => {
+          if (res.result.errCode == 0) {
+            if (res.result.data.boolexist == 1) {
+              console.log('查有此人。')
+              console.log('昵称：', res.result.data.user.nickName)
+              app.globalData.logged = true
+              app.globalData.user = res.result.data.user
+              app.globalData.userInfo.avatarUrl = app.globalData.user.userPic
+              app.globalData.userInfo.nickName = app.globalData.user.nickName
+              callback && callback()
+            } else {
+              console.log('查无此人。')
+              that._updateUser()
+              callback && callback()
+            }
+          } else {
+            console.error('通过openid查用户失败。', err)
+          }
+        },
+        fail: err => {
+          console.error('查用户失败，离谱。', err)
+        }
+      })
       callback && callback()
     }
   },

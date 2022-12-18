@@ -1,0 +1,20 @@
+<view class="header">
+  <!-- <image class="icon" src='/images/letsball_icon.png' mode='scaleToFill'></image> -->
+  <image class="icon" src='cloud://cloud1-1g2p285p3573c47d.636c-cloud1-1g2p285p3573c47d-1315632941/images/letsball.png' mode='scaleToFill'></image>
+  <image class="bg_ware" src="cloud://cloud1-1g2p285p3573c47d.636c-cloud1-1g2p285p3573c47d-1315632941/images/wave.gif" ></image>
+</view>
+<view data-weui-theme="{{theme}}">
+  <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+    <image class="avatar" src="{{avatarUrl}}"></image>
+  </button> 
+  <mp-form>
+    <mp-cells>
+      <mp-cell title="昵称">
+        <input type="nickname" class="weui-input" placeholder="请输入昵称" model:value="{{nickname}}"/>
+      </mp-cell>
+    </mp-cells>
+  </mp-form>
+</view>
+<view class="entry">
+      <view class="start" bindtap="entry">开始使用</view>
+    </view>

@@ -1,0 +1,64 @@
+.avatar-wrapper {
+    padding: 0;
+    width: 56px !important;
+    border-radius: 8px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+  
+  .avatar {
+    display: block;
+    width: 56px;
+    height: 56px;
+  }
+  
+  .container {
+    display: flex;
+  }
+  .icon {
+    width: 300rpx;
+    height: 300rpx;
+  }
+  
+  .bg_ware {
+    position: absolute;
+    left: 0;
+    bottom: -2rpx;
+    width: 100%;
+    mix-blend-mode: screen;
+    height: 120rpx;
+  }
+
+  .header {
+    position: relative;
+    height:450rpx;
+    background: linear-gradient(to bottom, #FE6559, #FF0A6B);
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .entry{
+      width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    position: relative;
+    border-radius:20rpx;
+    margin-right: 5rpx;
+    margin-left: 5rpx;
+    margin-top:auto;
+    height:max-content;
+  }
+  .start {
+    color: #fff;
+    background-color:#FF0A6B;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius:20rpx;
+    width: 50%;
+    height:max-content;
+    margin-top:10%;
+    font-size: 56rpx;
+  }

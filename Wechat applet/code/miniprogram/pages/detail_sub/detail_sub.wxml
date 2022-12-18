@@ -41,10 +41,12 @@
   <view class="subtitle">发起人</view>
   <view class="area_chat">
     <view class="chat_card">
-      <image class="avatar" src="{{pubInfo.userPic}}"></image>
+      <image class="avatar" wx:if="{{!publisherNickNameStatus}}" src="{{anoPic}}"></image>
+      <image class="avatar" wx:if="{{publisherNickNameStatus}}" src="{{pubInfo.userPic}}"></image>
       <view class="chat_content">
         <view class="chat_row">
-          <view class="chat_name">{{pubInfo.nickName}}</view>
+          <view class="chat_name" wx:if="{{!publisherNickNameStatus}}">{{anoName}}</view>
+          <view class="chat_name" wx:if="{{publisherNickNameStatus}}">{{pubInfo.nickName}}</view>
           <text class="user_badge">一般用户</text>
         </view>
         <view class="chat_row">
