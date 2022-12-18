@@ -10,7 +10,7 @@
 <view class="userinfo-wrapper">
   <view class="userinfo-line">
   <view class="userinfo-avatar-wrapper">
-    <image class="userinfo-avatar" mode="scaleToFill" src="{{userInfo.avatarUrl}}"></image>
+    <image class="userinfo-avatar" mode="scaleToFill" src="data:image/jpg;base64,{{userInfo.avatarUrl}}"></image>
   </view>
     <view class="userinfo-words">
       <view class="userinfo-nickname" bindtap="onTapLogIn">{{userInfo.nickName}}</view>

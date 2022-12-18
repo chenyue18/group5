@@ -22,9 +22,16 @@ Page({
       avatarUrl,
     })
   },
+
   entry: function (event) {
       var that = this
-    app.globalData.userInfo.avatarUrl = that.data.avatarUrl
+
+      const base64 = 'CxYh';
+      console.log(wx.base64ToArrayBuffer(base64))
+
+      that.data.avatarUrl = wx.getFileSystemManager().readFileSync(that.data.avatarUrl,'base64')
+      console.log(that.data.avatarUrl)
+      app.globalData.userInfo.avatarUrl = that.data.avatarUrl
     app.globalData.userInfo.nickName = that.data.nickname
     app.globalData.logged = true
     wx.switchTab({
